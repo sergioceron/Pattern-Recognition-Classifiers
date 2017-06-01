@@ -1,0 +1,8 @@
+web3.eth.sendTransaction({from: eth.accounts[6], to: '0x2365d604fa61fd02b6dca20cd0d8487e027a87b0', value: 90000, data: '0x98333704173009f500e6aad3'})
+
+0x5f86518ca9393daa90569e5e15dc9b8c2edc657f
+
+web.eth.getBalance( '0x5f86518ca9393daa90569e5e15dc9b8c2edc657f', function( e, balance ){
+console.lof('Error:' + e);
+console.lof('Balance: ' + balance);
+});

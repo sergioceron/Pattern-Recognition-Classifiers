@@ -1,0 +1,59 @@
+Ae = expandir(A)
+Be = expandir(B)
+
+
+// ENTRENAMIENTO, n es el tamaño del patron
+reglas_chain = [] // SON TODAS LAS REGLAS PARA CADA ITERACION
+hacer
+    reglas = [] // reglas[i] SON LAS DOS REGLAS (min, max) PARA EL RASGO i
+	para i=0 hasta n:
+        // ESTA PARTE ES CUANDO NO HAY INTESECCION |--A--|  |--B--| 
+		si min(A_i) > max(B_i):
+            A = A - {u: ueA y u_i > ( max(A_i) + min(B_i) ) / 2}
+            B = B - {v: veB y v_i < ( max(A_i) + min(B_i) ) / 2}
+            rmax = ( ( max(A_i) + min(B_i) ) / 2, claseA) // rmax(regla, clase a asignar en caso de que se cumpla la regla)
+            rmin = ( ( max(A_i) + min(B_i) ) / 2, claseB) // rmin(regla, clase a asignar en caso de que se cumpla la regla)
+        // ESTA PARTE ES CUANDO NO HAY INTESECCION |--B--|  |--A--|
+        si max(B_i) < min(A_i):
+            A = A - {u: ueA y u_i < ( max(B_i) + min(A_i) ) / 2}
+            B = B - {v: veB y v_i > ( max(B_i) + min(A_i) ) / 2}
+            rmax = ( ( max(B_i) + min(A_i) ) / 2, claseA)
+            rmin = ( ( max(B_i) + min(A_i) ) / 2, claseB)
+            
+        // ESTA PARTE ES PARA LA IZQUIERDA |--A--B--
+        si min(A_i) < min(B_i):
+            A = A - {u: ueA y u_i < min(B_i)}
+            rmin = ( min(B_i), claseA)
+        // ESTA PARTE ES PARA LA IZQUIERDA |--B--A--
+        si min(A_i) > min(B_i):
+            B = B - {v: ueB y v_i < min(A_i)}
+            rmin = ( min(A_i), claseB)
+        // ESTA PARTE ES PARA LA DERECHA    --A--B--|
+        si max(A_i) < max(B_i):
+            B = B - {v: ueB y v_i > max(A_i)}
+            rmax = ( max(A_i), claseB)
+        // ESTA PARTE ES PARA LA DERECHA    --B--A--|
+        si max(A_i) > max(B_i):
+            A = A - {u: ueA y u_i > max(B_i)}
+            rmax = ( max(B_i), claseA)
+        reglas(i) = [ ( rmin, rmax ) ] // puede existir el caso donde rmax, rmin o ambas sean nulas
+    reglas_chain += [ reglas(i) ]
+mientras |A|=0 v |B|=0
+
+
+// CLASIFICACION x es el vector desconocido
+para cada reglas en reglas_chain:
+    clases = []
+    para i=0 hasta n: // como hay n reglas, se cubren todos los rasgos
+        rmin = reglas(i, 0)
+        rmax = reglas(i, 1)
+        si rmin != nulo y x_i cumple rmin:
+            clases(rmin(1)) += 1 // rmin(1) es la clase que se asigna si se cumple rmin
+        si rmax != nulo y x_i cumple rmax:
+            clases(rmax(1)) += 1 // rmax(1) es la clase que se asigna si se cumple rmin
+    si |clases| > 0:
+        clase = argmax(clases)
+        salir ciclo
+    en otro caso:
+        clase = -1 // clase desconocida
+    

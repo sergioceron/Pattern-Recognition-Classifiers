@@ -1,0 +1,1 @@
+ds = np.genfromtxt('./datasets/iris2d.csv', delimiter=",", filling_values=0)

@@ -1,0 +1,57 @@
+var monitor = web3.eth.contract( [{
+            "constant": true,
+            "inputs": [],
+            "name": "total_btc",
+            "outputs": [{ "name": "", "type": "uint256", "value": "0" }],
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "total_bnk",
+            "outputs": [{ "name": "", "type": "uint256", "value": "0" }],
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [{ "name": "", "type": "bytes12" }],
+            "name": "investments",
+            "outputs": [{ "name": "", "type": "uint256", "value": "0" }],
+            "type": "function"
+        }, {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [{ "name": "", "type": "address", "value": "0x4db73ce4dfa430be339afbda4d22b530917333ce" }],
+            "type": "function"
+        }, {
+            "constant": false,
+            "inputs": [{ "name": "from", "type": "bytes12" }, { "name": "time", "type": "uint256" }, {
+                "name": "amount",
+                "type": "uint256"
+            }, { "name": "bitcoins", "type": "uint256" }, { "name": "bankcoins", "type": "uint256" }, {
+                "name": "txid",
+                "type": "string"
+            }],
+            "name": "invest",
+            "outputs": [],
+            "type": "function"
+        }, { "inputs": [], "type": "constructor" }, {
+            "anonymous": false,
+            "inputs": [{ "indexed": true, "name": "from", "type": "bytes12" }, {
+                "indexed": false,
+                "name": "time",
+                "type": "uint256"
+            }, { "indexed": false, "name": "amount", "type": "uint256" }, {
+                "indexed": false,
+                "name": "bitcoins",
+                "type": "uint256"
+            }, { "indexed": false, "name": "bankcoins", "type": "uint256" }, {
+                "indexed": false,
+                "name": "txid",
+                "type": "string"
+            }],
+            "name": "Investment",
+            "type": "event"
+        }] ).at( "0xff2b31B3D0875C8992Cd7A29AB8FbdFb8Fb8EcCA" );
+        
+        
+web3.personal.unlockAccount( "0x4db73ce4dfa430be339afbda4d22b530917333ce", "Sxceron.345" );

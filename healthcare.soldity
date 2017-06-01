@@ -1,0 +1,65 @@
+pragma solidity ^0.4.9;
+
+contract HealtcareRegister {
+    address public owner;
+    
+    struct Disease {
+        uint8 _type;
+        uint8 subtype;
+        bytes32 description;
+    }
+    
+    struct Patient {
+        address delegate;
+        bytes32 name;
+        uint weight;
+        uint height;
+        uint sex;
+        uint age;
+        uint zip;
+        Disease[] diseases;
+    }
+    
+    mapping( address => Patient ) public patients;
+    
+    event RegisterDisease( uint indexed zip, uint sex, uint weight, uint height, uint age, uint _type, uint subtype, bytes32 description );
+    
+    function HealtcareRegister() {
+        owner = msg.sender;
+    }
+
+    function() {
+        throw;
+    }
+
+    modifier admin { if( msg.sender == owner ) _; }
+
+    function NewPatient( address delegate, bytes32 name, uint weight, uint height, uint sex, uint age, uint zip ) admin {
+        patients[delegate].delegate = delegate;
+        patients[delegate].name = name;
+        patients[delegate].weight = weight; 
+        patients[delegate].height = height; 
+        patients[delegate].sex = sex;
+        patients[delegate].age = age;
+        patients[delegate].zip = zip;
+    }
+    
+    function EditPatient( bytes32 name, uint weight, uint height, uint sex, uint age, uint zip ) {
+        if( patients[msg.sender].delegate != 0x0 ){
+            patients[msg.sender].name = name;
+            patients[msg.sender].weight = weight; 
+            patients[msg.sender].height = height; 
+            patients[msg.sender].sex = sex;
+            patients[msg.sender].age = age;
+            patients[msg.sender].zip = zip;
+        } else {
+            throw;
+        }
+    }
+    
+    function AddDisease( address patient, uint8 _type, uint8 subtype, bytes32 description ){
+        patients[msg.sender].diseases[0] = Disease( {_type: _type, subtype: subtype, description: description} );
+        RegisterDisease( patients[msg.sender].zip, patients[msg.sender].sex, patients[msg.sender].weight, patients[msg.sender].height, patients[msg.sender].age, _type, subtype, description );
+    }
+    
+}

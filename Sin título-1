@@ -1,0 +1,18 @@
+contract Factory { 
+bytes32[] Names; 
+address[] newContracts; 
+function createContract (bytes32 name)constant returns (address){ 
+address newContract = new Contract(name); 
+newContracts.push(newContract); 
+return newContract; 
+} 
+function getName (uint i) { 
+Contract con = Contract(newContracts[i]); 
+Names[i] = con.Name(); 
+// bytes memory _ba = bytes(_a); 
+} 
+} 
+contract Contract { 
+    bytes32 public Name; 
+    function Contract (bytes32 name) { Name = name; } 
+} 

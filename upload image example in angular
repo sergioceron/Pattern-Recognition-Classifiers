@@ -1,0 +1,56 @@
+<div class="form-group">
+                        <label>Date</label>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" data-ng-model="entity.startDate">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <datetimepicker data-ng-model="entity.startDate"
+                                                data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" id="dropdown3" role="button" data-toggle="dropdown" data-target="#">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" data-ng-model="entity.endDate">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <datetimepicker data-ng-model="entity.endDate"
+                                                data-datetimepicker-config="{ dropdownSelector: '#dropdown3' }"/>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-controller="UploadController">
+                        <label>Image</label>
+                        <input type="hidden" data-ng-model="entity.image" >
+
+                        <input type="file" ng-file-select="onFileSelect($files)" style="display:none" id="image">
+                        <div class="input-append">
+                            <img ng-src="{{image.preview}}" width="200" height="150"><br/>
+                            <a class="btn btn-info" style="width: 200px" onclick="$('input[id=image]').click();">Browse</a>
+                        </div>
+
+                        <div class="uploader" ng-show="image.file">
+                            <button class="btn btn-info btn-circle btn-lg" ng-click="startUpload()" ng-show="image.progress < 0">
+                                <i class="fa fa-cloud-upload"></i>
+                            </button>
+                            <div class="progress progress-striped active" ng-show="image.progress >= 0">
+                                <div class="progress-bar" role="progressbar"
+                                     aria-valuenow="{{image.progress}}"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     style="width: {{progress[$index]}}%">
+                                    <span class="sr-only">{{image.progress}}% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
